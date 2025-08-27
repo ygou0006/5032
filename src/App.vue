@@ -1,13 +1,56 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { ref, onMounted } from 'vue'
+import HomePage from './HomePage.vue'
+import LoginPage from './LoginPage.vue'
+
+const page = ref('home')
+
+const user = ref(null)
+
+onMounted(() => {
+  const saved = localStorage.getItem('currentUser')
+  if (saved) user.value = JSON.parse(saved)
+})
+
+function handleAuthed(u) {
+  user.value = u
+  localStorage.setItem('currentUser', JSON.stringify(u))
+  page.value = 'home'
+}
+
+function logout() {
+  user.value = null
+  localStorage.removeItem('currentUser')
+  page.value = 'home'
+}
 </script>
 
 <template>
-  <main style="padding: 2rem; font-family: sans-serif">
-    <h1>welcome Public health website</h1>
-    <p>this is login page</p>
-  </main>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container d-flex justify-content-between">
+        <span class="navbar-brand">NFP Project</span>
+
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item me-2">
+            <button class="btn btn-light btn-sm" @click="page = 'home'">Home</button>
+          </li>
+          <li class="nav-item me-2" v-if="!user">
+            <button class="btn btn-outline-light btn-sm" @click="page = 'login'">Login</button>
+          </li>
+          <li class="nav-item d-flex align-items-center gap-2" v-else>
+            <span class="text-white small d-none d-md-inline">Hi, {{ user.email }}</span>
+            <button class="btn btn-outline-light btn-sm" @click="logout">Logout</button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="d-flex justify-content-center align-items-start w-100" style="min-height: 80vh">
+      <HomePage v-if="page === 'home'" :user="user" />
+      <LoginPage v-else @authed="handleAuthed" />
+    </main>
+  </div>
 </template>
 
 <style scoped>
