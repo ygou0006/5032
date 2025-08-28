@@ -2,9 +2,9 @@
 import { ref, onMounted } from 'vue'
 import HomePage from './HomePage.vue'
 import LoginPage from './LoginPage.vue'
+import ProfilePage from './ProfilePage.vue' // ⬅ new
 
 const page = ref('home')
-
 const user = ref(null)
 
 onMounted(() => {
@@ -35,20 +35,32 @@ function logout() {
           <li class="nav-item me-2">
             <button class="btn btn-light btn-sm" @click="page = 'home'">Home</button>
           </li>
-          <li class="nav-item me-2" v-if="!user">
-            <button class="btn btn-outline-light btn-sm" @click="page = 'login'">Login</button>
-          </li>
-          <li class="nav-item d-flex align-items-center gap-2" v-else>
-            <span class="text-white small d-none d-md-inline">Hi, {{ user.email }}</span>
-            <button class="btn btn-outline-light btn-sm" @click="logout">Logout</button>
-          </li>
+
+          <template v-if="!user">
+            <li class="nav-item me-2">
+              <button class="btn btn-outline-light btn-sm" @click="page = 'login'">Login</button>
+            </li>
+          </template>
+
+          <template v-else>
+            <li class="nav-item me-2">
+              <button class="btn btn-outline-light btn-sm" @click="page = 'profile'">
+                Profile
+              </button>
+            </li>
+            <li class="nav-item d-flex align-items-center gap-2">
+              <span class="text-white small d-none d-md-inline">Hi, {{ user.email }}</span>
+              <button class="btn btn-outline-light btn-sm" @click="logout">Logout</button>
+            </li>
+          </template>
         </ul>
       </div>
     </nav>
 
     <main class="d-flex justify-content-center align-items-start w-100" style="min-height: 80vh">
       <HomePage v-if="page === 'home'" :user="user" />
-      <LoginPage v-else @authed="handleAuthed" />
+      <LoginPage v-else-if="page === 'login'" @authed="handleAuthed" />
+      <ProfilePage v-else-if="page === 'profile'" :user="user" />
     </main>
   </div>
 </template>
