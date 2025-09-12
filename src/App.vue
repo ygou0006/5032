@@ -43,12 +43,12 @@ onBeforeUnmount(() => {
             <li class="nav-item me-2">
               <router-link class="btn btn-outline-light btn-sm" to="/profile">Profile</router-link>
             </li>
-            <li class="nav-item me-2" v-if="user.role === 'Admin'">
+            <li class="nav-item me-2" v-if="user.role === 'admin'">
               <router-link class="btn btn-warning btn-sm" to="/admin">Admin Panel</router-link>
             </li>
             <li class="nav-item d-flex align-items-center gap-2">
               <span class="text-white small d-none d-md-inline">
-                Hi, {{ user.email }} ({{ user.role }})
+                Hi, {{ user.email }} ({{ user.role || 'user' }})
               </span>
               <button class="btn btn-outline-light btn-sm" @click="logout">Logout</button>
             </li>
