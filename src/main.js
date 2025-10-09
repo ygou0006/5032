@@ -1,6 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import store from './store'
+import './services/firebase'
 
-createApp(App).use(router).mount('#app')
+// Bootstrap for responsiveness
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap'
+
+createApp(App).use(store).use(router).mount('#app')
