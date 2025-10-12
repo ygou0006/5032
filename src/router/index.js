@@ -81,7 +81,7 @@ const routes = [
   {
     path: '/appointments',
     name: 'Appointments',
-    component: () => {}/*import('../components/Features/AppointmentBooking.vue')*/,
+    component: () => import('../components/Features/AppointmentBooking.vue'),
     meta: { requiresAuth: true, roles: ['user', 'nutritionist', 'admin'], title: 'Book Appointment' }
   },
   {

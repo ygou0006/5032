@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 用户资料 - 用户只能读写自己的资料
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // 预约 - 用户创建和管理自己的预约
+    match /appointments/{appointmentId} {
+      allow read, write: if request.auth != null && 
+        (request.auth.uid == resource.data.userId || 
+         resource.data.nutritionistId == request.auth.uid);
+    }
+    
+    // 评价 - 公开读取，认证用户可写
+    match /ratings/{ratingId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}
