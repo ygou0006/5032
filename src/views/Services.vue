@@ -33,11 +33,20 @@
                   <span class="h5 text-dark">${{ service.price }}</span>
                   <span class="text-muted small">/{{ service.period }}</span>
                 </div>
-                <button class="btn btn-success mt-3" @click="bookService(service)" :disabled="!isAuthenticated">
+                <button
+                  class="btn btn-success mt-3"
+                  @click="bookService(service)"
+                  :disabled="!isAuthenticated"
+                >
                   {{ isAuthenticated ? 'Book Now' : 'Login to Book' }}
                 </button>
-                <RatingSystem v-if="service.rating" :item-id="`service-${service.id}`" :initial-rating="service.rating"
-                  :initial-total-ratings="service.reviews" class="mt-3" />
+                <RatingSystem
+                  v-if="service.rating"
+                  :item-id="`service-${service.id}`"
+                  :initial-rating="service.rating"
+                  :initial-total-ratings="service.reviews"
+                  class="mt-3"
+                />
               </div>
             </div>
           </div>
@@ -49,11 +58,11 @@
     <section class="cta-section bg-light py-5">
       <div class="container text-center">
         <h2 class="fw-bold text-success mb-4">Ready to Start Your Health Journey?</h2>
-        <p class="lead mb-4">Join thousands of satisfied clients who have transformed their health</p>
+        <p class="lead mb-4">
+          Join thousands of satisfied clients who have transformed their health
+        </p>
         <div class="d-flex justify-content-center gap-3">
-          <router-link to="/register" class="btn btn-success btn-lg">
-            Get Started
-          </router-link>
+          <router-link to="/register" class="btn btn-success btn-lg"> Get Started </router-link>
           <router-link to="/contact" class="btn btn-outline-success btn-lg">
             Contact Us
           </router-link>
@@ -70,10 +79,10 @@ import RatingSystem from '@/components/Common/RatingSystem.vue'
 export default {
   name: 'Services',
   components: {
-    RatingSystem
+    RatingSystem,
   },
   computed: {
-    ...mapGetters(['isAuthenticated'])
+    ...mapGetters(['isAuthenticated']),
   },
   data() {
     return {
@@ -87,12 +96,12 @@ export default {
             '60-minute one-on-one session',
             'Detailed health assessment',
             'Personalized meal plan',
-            'Follow-up support'
+            'Follow-up support',
           ],
           price: 120,
           period: 'session',
           rating: 4.7,
-          reviews: 234
+          reviews: 234,
         },
         {
           id: 2,
@@ -103,12 +112,12 @@ export default {
             'Weekly customized plans',
             'Grocery shopping list',
             'Recipe collection',
-            'Nutrition analysis'
+            'Nutrition analysis',
           ],
           price: 80,
           period: 'week',
           rating: 4.8,
-          reviews: 189
+          reviews: 189,
         },
         {
           id: 3,
@@ -119,12 +128,12 @@ export default {
             '90-minute group session',
             'Expert-led discussions',
             'Q&A opportunities',
-            'Resource materials'
+            'Resource materials',
           ],
           price: 25,
           period: 'person',
           rating: 4.5,
-          reviews: 156
+          reviews: 156,
         },
         {
           id: 4,
@@ -135,12 +144,12 @@ export default {
             'Team health assessments',
             'Lunch & learn sessions',
             'Wellness challenges',
-            'Progress tracking'
+            'Progress tracking',
           ],
           price: 500,
           period: 'program',
           rating: 4.9,
-          reviews: 67
+          reviews: 67,
         },
         {
           id: 5,
@@ -151,12 +160,12 @@ export default {
             'Video consultations',
             'Mobile app access',
             '24/7 messaging support',
-            'Progress monitoring'
+            'Progress monitoring',
           ],
           price: 150,
           period: 'month',
           rating: 4.6,
-          reviews: 312
+          reviews: 312,
         },
         {
           id: 6,
@@ -167,14 +176,14 @@ export default {
             'Sliding scale fees',
             'Multilingual resources',
             'Cultural sensitivity',
-            'Community support'
+            'Community support',
           ],
           price: 0,
           period: 'free',
           rating: 4.8,
-          reviews: 421
-        }
-      ]
+          reviews: 421,
+        },
+      ],
     }
   },
   methods: {
@@ -184,8 +193,8 @@ export default {
       } else {
         this.$router.push('/login')
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -195,7 +204,9 @@ export default {
 }
 
 .service-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .service-card:hover {

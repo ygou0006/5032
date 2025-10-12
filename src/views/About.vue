@@ -12,7 +12,11 @@
             </p>
           </div>
           <div class="col-lg-6">
-            <img src="@/assets/logo.svg" alt="About Nutrition Education" class="img-fluid rounded shadow">
+            <img
+              src="@/assets/logo.svg"
+              alt="About Nutrition Education"
+              class="img-fluid rounded shadow"
+            />
           </div>
         </div>
       </div>
@@ -28,9 +32,9 @@
                 <i class="fas fa-bullseye display-4 text-success mb-3"></i>
                 <h3 class="card-title text-success">Our Mission</h3>
                 <p class="card-text">
-                  To empower individuals and communities with practical nutrition knowledge
-                  and resources that promote lifelong health and well-being through accessible
-                  education programs and personalized support.
+                  To empower individuals and communities with practical nutrition knowledge and
+                  resources that promote lifelong health and well-being through accessible education
+                  programs and personalized support.
                 </p>
               </div>
             </div>
@@ -69,8 +73,13 @@
               <span class="input-group-text">
                 <i class="fas fa-search"></i>
               </span>
-              <input type="text" class="form-control" placeholder="Search nutritionists by name or specialty..."
-                v-model="searchQuery" @input="handleSearch">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Search nutritionists by name or specialty..."
+                v-model="searchQuery"
+                @input="handleSearch"
+              />
             </div>
           </div>
           <div class="col-md-3">
@@ -99,12 +108,20 @@
 
         <!-- 营养师列表 -->
         <div class="row" v-else>
-          <div class="col-md-3 mb-3" v-for="nutritionist in paginatedNutritionists" :key="nutritionist.uid">
+          <div
+            class="col-md-3 mb-3"
+            v-for="nutritionist in paginatedNutritionists"
+            :key="nutritionist.uid"
+          >
             <div class="card h-100 border-0 shadow-sm">
               <!-- 营养师图片 -->
               <div class="nutritionist-image-container">
-                <img :src="nutritionist.profileImage || defaultProfileImage" class="card-img-top nutritionist-image"
-                  :alt="nutritionist.firstName" @error="handleImageError">
+                <img
+                  :src="nutritionist.profileImage || defaultProfileImage"
+                  class="card-img-top nutritionist-image"
+                  :alt="nutritionist.firstName"
+                  @error="handleImageError"
+                />
                 <div class="nutritionist-badge">
                   <i class="fas fa-user-md me-1"></i> Nutritionist
                 </div>
@@ -137,19 +154,28 @@
                 </p>
 
                 <!-- 语言 -->
-                <p v-if="nutritionist.languages && nutritionist.languages.length" class="card-text small text-muted">
+                <p
+                  v-if="nutritionist.languages && nutritionist.languages.length"
+                  class="card-text small text-muted"
+                >
                   <i class="fas fa-language me-1"></i>
                   {{ nutritionist.languages.join(', ') }}
                 </p>
 
                 <!-- 评分系统 -->
-                <RatingSystem :item-id="`nutritionist-${nutritionist.uid}`"
+                <RatingSystem
+                  :item-id="`nutritionist-${nutritionist.uid}`"
                   :initial-rating="nutritionist.averageRating || 0"
-                  :initial-total-ratings="nutritionist.totalRatings || 0" />
+                  :initial-total-ratings="nutritionist.totalRatings || 0"
+                />
 
                 <!-- 无资料提示 -->
-                <div v-if="!nutritionist.bio && !nutritionist.specialty && !nutritionist.qualifications"
-                  class="mt-2 p-2 bg-light rounded">
+                <div
+                  v-if="
+                    !nutritionist.bio && !nutritionist.specialty && !nutritionist.qualifications
+                  "
+                  class="mt-2 p-2 bg-light rounded"
+                >
                   <small class="text-muted">
                     <i class="fas fa-info-circle me-1"></i>
                     This nutritionist hasn't completed their profile yet.
@@ -165,9 +191,7 @@
           <i class="fas fa-user-md display-1 text-muted mb-3"></i>
           <h4 class="text-muted">No Nutritionists Found</h4>
           <p class="text-muted">Try adjusting your search criteria.</p>
-          <button class="btn btn-success" @click="clearFilters">
-            Clear Filters
-          </button>
+          <button class="btn btn-success" @click="clearFilters">Clear Filters</button>
         </div>
 
         <!-- 分页控件 -->
@@ -183,8 +207,12 @@
                 </li>
 
                 <!-- 页码 -->
-                <li v-for="page in visiblePages" :key="page" class="page-item"
-                  :class="{ active: page === currentPage }">
+                <li
+                  v-for="page in visiblePages"
+                  :key="page"
+                  class="page-item"
+                  :class="{ active: page === currentPage }"
+                >
                   <button class="page-link" @click="changePage(page)">
                     {{ page }}
                   </button>
@@ -202,7 +230,8 @@
             <!-- 页面信息 -->
             <div class="text-center mt-2">
               <p class="text-muted small">
-                Showing {{ startIndex + 1 }} to {{ endIndex }} of {{ filteredNutritionists.length }} nutritionists
+                Showing {{ startIndex + 1 }} to {{ endIndex }} of
+                {{ filteredNutritionists.length }} nutritionists
               </p>
             </div>
           </div>
@@ -216,12 +245,12 @@
 import { db } from '@/services/firebase'
 import { collection, query, where, getDocs } from 'firebase/firestore'
 import RatingSystem from '@/components/Common/RatingSystem.vue'
-import _defaultProfileImage from '@/assets/default-profile.jpg';
+import _defaultProfileImage from '@/assets/default-profile.jpg'
 
 export default {
   name: 'About',
   components: {
-    RatingSystem
+    RatingSystem,
   },
   data() {
     return {
@@ -237,7 +266,7 @@ export default {
 
       // 搜索和排序
       searchQuery: '',
-      sortBy: 'rating'
+      sortBy: 'rating',
     }
   },
   computed: {
@@ -273,7 +302,7 @@ export default {
       }
 
       return pages
-    }
+    },
   },
   async mounted() {
     await this.loadNutritionists()
@@ -287,12 +316,12 @@ export default {
         const nutritionistsQuery = query(
           collection(db, 'users'),
           where('role', '==', 'nutritionist'),
-          where('isActive', '==', true)
+          where('isActive', '==', true),
         )
 
         const querySnapshot = await getDocs(nutritionistsQuery)
 
-        this.allNutritionists = querySnapshot.docs.map(doc => {
+        this.allNutritionists = querySnapshot.docs.map((doc) => {
           const data = doc.data()
           return {
             uid: doc.id,
@@ -309,13 +338,12 @@ export default {
             totalRatings: data.totalRatings || 0,
             createdAt: data.createdAt || null,
             // 用于搜索的完整名称
-            fullName: `${data.firstName || ''} ${data.lastName || ''}`.trim().toLowerCase()
+            fullName: `${data.firstName || ''} ${data.lastName || ''}`.trim().toLowerCase(),
           }
         })
 
         // 应用初始排序和筛选
         this.applySorting()
-
       } catch (error) {
         console.error('Error loading nutritionists:', error)
         // 如果查询失败，使用模拟数据作为后备
@@ -337,11 +365,12 @@ export default {
       // 首先应用搜索筛选
       if (this.searchQuery.trim()) {
         const query = this.searchQuery.toLowerCase().trim()
-        this.filteredNutritionists = this.allNutritionists.filter(nutritionist => {
+        this.filteredNutritionists = this.allNutritionists.filter((nutritionist) => {
           return (
             nutritionist.fullName.includes(query) ||
             (nutritionist.specialty && nutritionist.specialty.toLowerCase().includes(query)) ||
-            (nutritionist.qualifications && nutritionist.qualifications.toLowerCase().includes(query)) ||
+            (nutritionist.qualifications &&
+              nutritionist.qualifications.toLowerCase().includes(query)) ||
             (nutritionist.bio && nutritionist.bio.toLowerCase().includes(query))
           )
         })
@@ -426,7 +455,7 @@ export default {
           languages: ['English', 'Mandarin'],
           averageRating: 4.8,
           totalRatings: 127,
-          fullName: 'sarah chen'
+          fullName: 'sarah chen',
         },
         {
           uid: 'mock-2',
@@ -440,7 +469,7 @@ export default {
           languages: ['English', 'Spanish'],
           averageRating: 4.6,
           totalRatings: 89,
-          fullName: 'michael rodriguez'
+          fullName: 'michael rodriguez',
         },
         {
           uid: 'mock-3',
@@ -454,7 +483,7 @@ export default {
           languages: ['English'],
           averageRating: 4.9,
           totalRatings: 95,
-          fullName: 'emily watson'
+          fullName: 'emily watson',
         },
         {
           uid: 'mock-4',
@@ -468,7 +497,7 @@ export default {
           languages: ['English', 'French'],
           averageRating: 4.7,
           totalRatings: 143,
-          fullName: 'james wilson'
+          fullName: 'james wilson',
         },
         {
           uid: 'mock-5',
@@ -482,7 +511,7 @@ export default {
           languages: ['English', 'Spanish'],
           averageRating: 4.8,
           totalRatings: 78,
-          fullName: 'lisa garcia'
+          fullName: 'lisa garcia',
         },
         {
           uid: 'mock-6',
@@ -496,7 +525,7 @@ export default {
           languages: ['English', 'Korean'],
           averageRating: 4.5,
           totalRatings: 64,
-          fullName: 'david kim'
+          fullName: 'david kim',
         },
         {
           uid: 'mock-7',
@@ -510,7 +539,7 @@ export default {
           languages: ['English', 'Hindi'],
           averageRating: 4.9,
           totalRatings: 112,
-          fullName: 'anna patel'
+          fullName: 'anna patel',
         },
         {
           uid: 'mock-8',
@@ -524,11 +553,11 @@ export default {
           languages: ['English'],
           averageRating: 4.6,
           totalRatings: 87,
-          fullName: 'robert taylor'
-        }
+          fullName: 'robert taylor',
+        },
       ]
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -575,7 +604,9 @@ export default {
 }
 
 .team-section .card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .team-section .card:hover {
