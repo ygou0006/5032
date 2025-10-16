@@ -7,7 +7,7 @@
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 
-const {onRequest} = require("firebase-functions/v2/https");
+const { onRequest } = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
 
 // Create and deploy your first functions
@@ -26,8 +26,8 @@ admin.initializeApp();
 
 // 直接在代码中配置邮件设置
 const mailConfig = {
-  email: 'your-development-email@gmail.com', // 替换为你的测试邮箱
-  password: 'your-app-password' // 替换为应用专用密码
+  email: 'Ygou0006@student.Monash.edu', // 替换为你的测试邮箱
+  password: 'velfzzqpcahagfas' // 替换为应用专用密码
 };
 
 // 邮件传输器配置
@@ -35,7 +35,7 @@ function getMailTransport() {
   try {
     // 首先尝试从环境配置获取
     const envConfig = functions.config().gmail;
-    
+
     if (envConfig && envConfig.email && envConfig.password) {
       const nodemailer = require('nodemailer');
       console.log('Using environment configuration for email');
@@ -152,7 +152,7 @@ exports.sendEmail = functions.https.onCall(async (data, context) => {
     };
 
     await mailTransport.sendMail(mailOptions);
-    
+
     // Log the email sending
     await admin.firestore().collection('emailLogs').add({
       from: context.auth.uid,
@@ -165,7 +165,7 @@ exports.sendEmail = functions.https.onCall(async (data, context) => {
     return { success: true, message: 'Email sent successfully' };
   } catch (error) {
     console.error('Failed to send email:', error);
-    
+
     // Log failure
     await admin.firestore().collection('emailLogs').add({
       from: context.auth.uid,
@@ -228,7 +228,7 @@ exports.sendBulkEmail = functions.https.onCall(async (data, context) => {
           email: user.email,
           status: 'success'
         });
-        
+
         console.log(`Email sent successfully: ${user.email}`);
       } catch (error) {
         results.failed++;
@@ -237,7 +237,7 @@ exports.sendBulkEmail = functions.https.onCall(async (data, context) => {
           status: 'failed',
           error: error.message
         });
-        
+
         console.error(`Failed to send email to ${user.email}:`, error.message);
       }
     }
@@ -357,12 +357,12 @@ exports.createAppointment = functions.https.onCall(async (data, context) => {
     };
   } catch (error) {
     console.error('Failed to create appointment:', error);
-    
+
     // 如果已经是 HttpsError，直接抛出
     if (error.code && error.message) {
       throw error;
     }
-    
+
     throw new functions.https.HttpsError(
       'internal',
       'Failed to create appointment: ' + error.message
@@ -378,7 +378,7 @@ exports.updateNutritionistRating = functions.firestore
   .onWrite(async (change, context) => {
     try {
       const ratingData = change.after.exists ? change.after.data() : null;
-      
+
       // Skip if rating was deleted
       if (!ratingData) return null;
 
@@ -443,7 +443,7 @@ exports.healthCheck = functions.https.onCall(async (data, context) => {
 exports.getNutritionists = functions.https.onCall(async (data, context) => {
   try {
     const { limit = 50, page = 1 } = data;
-    
+
     const nutritionistsQuery = await admin.firestore()
       .collection('users')
       .where('role', '==', 'nutritionist')
@@ -452,7 +452,7 @@ exports.getNutritionists = functions.https.onCall(async (data, context) => {
       .get();
 
     const nutritionists = [];
-    
+
     nutritionistsQuery.forEach(doc => {
       const data = doc.data();
       nutritionists.push({

@@ -8,34 +8,22 @@
               <h2 class="text-center mb-4 text-success">
                 <i class="fas fa-user-plus me-2"></i>Create Account
               </h2>
-              
+
               <form @submit.prevent="handleRegister">
                 <!-- 姓名 -->
                 <div class="row">
                   <div class="col-md-6 mb-3">
                     <label for="firstName" class="form-label">First Name</label>
-                    <input 
-                      type="text" 
-                      class="form-control" 
-                      id="firstName"
-                      v-model="form.firstName"
-                      :class="{ 'is-invalid': errors.firstName }"
-                      required
-                    >
+                    <input type="text" class="form-control" id="firstName" v-model="form.firstName"
+                      :class="{ 'is-invalid': errors.firstName }" required>
                     <div class="invalid-feedback" v-if="errors.firstName">
                       {{ errors.firstName }}
                     </div>
                   </div>
                   <div class="col-md-6 mb-3">
                     <label for="lastName" class="form-label">Last Name</label>
-                    <input 
-                      type="text" 
-                      class="form-control" 
-                      id="lastName"
-                      v-model="form.lastName"
-                      :class="{ 'is-invalid': errors.lastName }"
-                      required
-                    >
+                    <input type="text" class="form-control" id="lastName" v-model="form.lastName"
+                      :class="{ 'is-invalid': errors.lastName }" required>
                     <div class="invalid-feedback" v-if="errors.lastName">
                       {{ errors.lastName }}
                     </div>
@@ -45,14 +33,8 @@
                 <!-- 邮箱 -->
                 <div class="mb-3">
                   <label for="email" class="form-label">Email Address</label>
-                  <input 
-                    type="email" 
-                    class="form-control" 
-                    id="email"
-                    v-model="form.email"
-                    :class="{ 'is-invalid': errors.email }"
-                    required
-                  >
+                  <input type="email" class="form-control" id="email" v-model="form.email"
+                    :class="{ 'is-invalid': errors.email }" required>
                   <div class="invalid-feedback" v-if="errors.email">
                     {{ errors.email }}
                   </div>
@@ -61,33 +43,21 @@
                 <!-- 密码 -->
                 <div class="mb-3">
                   <label for="password" class="form-label">Password</label>
-                  <input 
-                    type="password" 
-                    class="form-control" 
-                    id="password"
-                    v-model="form.password"
-                    :class="{ 'is-invalid': errors.password }"
-                    required
-                  >
+                  <input type="password" class="form-control" id="password" v-model="form.password"
+                    :class="{ 'is-invalid': errors.password }" required>
                   <div class="invalid-feedback" v-if="errors.password">
                     {{ errors.password }}
                   </div>
-                  <div class="form-text">
+                  <!--div class="form-text">
                     Password must be at least 6 characters long
-                  </div>
+                  </div-->
                 </div>
 
                 <!-- 确认密码 -->
                 <div class="mb-3">
                   <label for="confirmPassword" class="form-label">Confirm Password</label>
-                  <input 
-                    type="password" 
-                    class="form-control" 
-                    id="confirmPassword"
-                    v-model="form.confirmPassword"
-                    :class="{ 'is-invalid': errors.confirmPassword }"
-                    required
-                  >
+                  <input type="password" class="form-control" id="confirmPassword" v-model="form.confirmPassword"
+                    :class="{ 'is-invalid': errors.confirmPassword }" required>
                   <div class="invalid-feedback" v-if="errors.confirmPassword">
                     {{ errors.confirmPassword }}
                   </div>
@@ -97,26 +67,14 @@
                 <div class="mb-4">
                   <label class="form-label">I want to join as:</label>
                   <div class="form-check">
-                    <input 
-                      class="form-check-input" 
-                      type="radio"
-                      id="roleUser"
-                      value="user" 
-                      v-model="form.role"
-                      checked
-                    >
+                    <input class="form-check-input" type="radio" id="roleUser" value="user" v-model="form.role" checked>
                     <label class="form-check-label" for="roleUser">
                       <strong>Community Member</strong> - Access resources and book appointments
                     </label>
                   </div>
                   <div class="form-check">
-                    <input 
-                      class="form-check-input" 
-                      type="radio" 
-                      id="roleNutritionist"
-                      value="nutritionist" 
-                      v-model="form.role"
-                    >
+                    <input class="form-check-input" type="radio" id="roleNutritionist" value="nutritionist"
+                      v-model="form.role">
                     <label class="form-check-label" for="roleNutritionist">
                       <strong>Nutrition Professional</strong> - Provide consultations and guidance
                     </label>
@@ -126,15 +84,11 @@
                 <!-- 条款同意 -->
                 <div class="mb-4">
                   <div class="form-check">
-                    <input 
-                      class="form-check-input" 
-                      type="checkbox" 
-                      id="agreeTerms"
-                      v-model="form.agreeTerms"
-                      :class="{ 'is-invalid': errors.agreeTerms }"
-                    >
+                    <input class="form-check-input" type="checkbox" id="agreeTerms" v-model="form.agreeTerms"
+                      :class="{ 'is-invalid': errors.agreeTerms }">
                     <label class="form-check-label small" for="agreeTerms">
-                      I agree to the <a href="#" class="text-success">Terms of Service</a> and <a href="#" class="text-success">Privacy Policy</a>
+                      I agree to the <a href="#" class="text-success">Terms of Service</a> and <a href="#"
+                        class="text-success">Privacy Policy</a>
                     </label>
                     <div class="invalid-feedback" v-if="errors.agreeTerms">
                       {{ errors.agreeTerms }}
@@ -144,11 +98,7 @@
 
                 <!-- 注册按钮 -->
                 <div class="d-grid gap-2">
-                  <button 
-                    type="submit" 
-                    class="btn btn-success btn-lg"
-                    :disabled="loading"
-                  >
+                  <button type="submit" class="btn btn-success btn-lg" :disabled="loading">
                     <span v-if="loading" class="spinner-border spinner-border-sm me-2"></span>
                     Create Account
                   </button>
@@ -177,7 +127,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { validateEmail, validatePassword } from '@/utils/validators'
+import { validateEmail, validateStrongPassword } from '@/utils/validators'
 
 export default {
   name: 'Register',
@@ -200,54 +150,54 @@ export default {
   },
   methods: {
     ...mapActions(['register']),
-    
+
     validateForm() {
       this.errors = {}
-      
+
       // 名字验证
       if (!this.form.firstName) {
         this.errors.firstName = 'First name is required'
       }
-      
+
       if (!this.form.lastName) {
         this.errors.lastName = 'Last name is required'
       }
-      
+
       // 邮箱验证
       if (!this.form.email) {
         this.errors.email = 'Email is required'
       } else if (!validateEmail(this.form.email)) {
         this.errors.email = 'Please enter a valid email address'
       }
-      
+
       // 密码验证
       if (!this.form.password) {
         this.errors.password = 'Password is required'
-      } else if (!validatePassword(this.form.password)) {
-        this.errors.password = 'Password must be at least 6 characters long'
+      } else if (!validateStrongPassword(this.form.password)) {
+        this.errors.password = 'Password must be at least 8 characters long and include uppercase, lowercase, number, and special character'
       }
-      
+
       // 确认密码验证
       if (!this.form.confirmPassword) {
         this.errors.confirmPassword = 'Please confirm your password'
       } else if (this.form.password !== this.form.confirmPassword) {
         this.errors.confirmPassword = 'Passwords do not match'
       }
-      
+
       // 条款同意验证
       if (!this.form.agreeTerms) {
         this.errors.agreeTerms = 'You must agree to the terms and conditions'
       }
-      
+
       return Object.keys(this.errors).length === 0
     },
-    
+
     async handleRegister() {
       if (!this.validateForm()) return
-      
+
       try {
         await this.register(this.form)
-        
+
         // 注册成功，根据用户角色重定向
         const userRole = this.form.role
         switch (userRole) {
@@ -257,7 +207,7 @@ export default {
           default:
             this.$router.push('/dashboard')
         }
-        
+
       } catch (error) {
         // 错误已在store中处理
         console.error('Registration error:', error)

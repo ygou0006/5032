@@ -9,18 +9,20 @@
               Transform Your Health Through Nutrition Education
             </h1>
             <p class="lead mb-4">
-              Empowering communities with evidence-based nutrition knowledge and personalized
-              guidance for better health outcomes.
+              Empowering communities with evidence-based nutrition knowledge and personalized guidance
+              for better health outcomes.
             </p>
             <div class="d-flex gap-3">
-              <router-link to="/services" class="btn btn-light btn-lg"> Our Services </router-link>
+              <router-link to="/services" class="btn btn-light btn-lg">
+                Our Services
+              </router-link>
               <router-link to="/register" class="btn btn-outline-light btn-lg">
                 Get Started
               </router-link>
             </div>
           </div>
           <div class="col-lg-6">
-            <img src="@/assets/logo.svg" alt="Healthy Nutrition" class="img-fluid rounded shadow" />
+            <img src="@/assets/logo.svg" alt="Healthy Nutrition" class="img-fluid rounded shadow">
           </div>
         </div>
       </div>
@@ -43,11 +45,8 @@
                 <h5 class="card-title">{{ feature.title }}</h5>
                 <p class="card-text">{{ feature.description }}</p>
                 <!-- 添加评分系统到每个特性 -->
-                <RatingSystem
-                  :item-id="`feature-${feature.id}`"
-                  :initial-rating="feature.rating"
-                  :initial-total-ratings="feature.reviews"
-                />
+                <RatingSystem :item-id="`feature-${feature.id}`" :initial-rating="feature.rating"
+                  :initial-total-ratings="feature.reviews" />
               </div>
             </div>
           </div>
@@ -61,14 +60,10 @@
         <div class="row align-items-center">
           <div class="col-lg-6">
             <h3 class="fw-bold mb-4">What Our Community Says</h3>
-            <RatingSystem
-              item-id="home-page-overall"
-              :initial-rating="4.5"
-              :initial-total-ratings="127"
-            />
+            <RatingSystem item-id="home-page-overall" :initial-rating="4.5" :initial-total-ratings="127" />
             <p class="mt-3">
-              Join thousands of satisfied members who have transformed their health through our
-              evidence-based nutrition programs.
+              Join thousands of satisfied members who have transformed their health through
+              our evidence-based nutrition programs.
             </p>
           </div>
           <div class="col-lg-6">
@@ -86,7 +81,7 @@ import RatingSystem from '@/components/Common/RatingSystem.vue'
 export default {
   name: 'Home',
   components: {
-    RatingSystem,
+    RatingSystem
   },
   data() {
     return {
@@ -95,19 +90,17 @@ export default {
           id: 1,
           icon: 'fas fa-graduation-cap',
           title: 'Expert-Led Education',
-          description:
-            'Learn from certified nutritionists and dietitians with years of experience.',
+          description: 'Learn from certified nutritionists and dietitians with years of experience.',
           rating: 4.8,
-          reviews: 156,
+          reviews: 156
         },
         {
           id: 2,
           title: 'Personalized Plans',
           icon: 'fas fa-user-cog',
-          description:
-            'Customized nutrition plans tailored to your specific health goals and needs.',
+          description: 'Customized nutrition plans tailored to your specific health goals and needs.',
           rating: 4.7,
-          reviews: 128,
+          reviews: 128
         },
         {
           id: 3,
@@ -115,11 +108,11 @@ export default {
           icon: 'fas fa-users',
           description: 'Join a supportive community of individuals on similar health journeys.',
           rating: 4.6,
-          reviews: 203,
-        },
-      ],
+          reviews: 203
+        }
+      ]
     }
-  },
+  }
 }
 </script>
 
